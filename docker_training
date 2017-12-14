@@ -1,0 +1,187 @@
+APP----> 1000 times in one sec....
+
+What you need is?
+	Docker Engine - A tool which enable this functionality
+	Docker Image ---  sep1.0 ==> jenkins
+	Docker Repo/Registry - https://hub.docker.com/
+	Container ----Run state of the images ----> Container
+
+	Running App of Jenkins....
+
+	docker run -d -p 8080:8080 -p 50000:50000 jenkins
+	docker run -d -p 8081:8080 -p 50001:50000 jenkins
+	docker run -d -p 8082:8080 -p 50002:50000 jenkins
+
+
+How to install Docker Enginer?
+Ans - http://www.devopsschool.com/tutorial/docker/docker-install-and-configuration.html
+
+First Command to check docker installation?
+> docker info
+
+> docker help
+> docker help command
+
+Basic Workflow
+==============================
+APP - Jenkins
+
+Docker Engine	- DONE
+Docker Images	
+Docker registry
+Docker Container?
+
+
+How to see the list of the images in my host?
+> docker images
+
+How to get images from repo?
+> docker pull jenkins
+
+
+[root@ip-172-31-10-210 ~]# cd /var/lib/docker/
+[root@ip-172-31-10-210 docker]# tree
+.
++-- containers
++-- image
+¦   +-- overlay
+¦       +-- distribution
+¦       +-- imagedb
+¦       ¦   +-- content
+¦       ¦   ¦   +-- sha256
+¦       ¦   +-- metadata
+¦       ¦       +-- sha256
+¦       +-- layerdb
+¦       +-- repositories.json
++-- network
+¦   +-- files
+¦       +-- local-kv.db
++-- overlay
++-- plugins
+¦   +-- storage
+¦   ¦   +-- blobs
+¦   ¦       +-- tmp
+¦   +-- tmp
++-- swarm
++-- tmp
++-- trust
++-- volumes
+    +-- metadata.db
+
+22 directories, 3 files
+
+How do i check the number of containers running in my host?
+> docker ps
+
+How ton run container?
+> docker run -d -p 8080:8080 -p 50000:50000 jenkins
+> docker run -d -p 8085:8080 -p 50005:50000 jenkins
+> docker help run
+
+How to get inside a container?
+> docker exec -it cont-id /bin/bash
+
+How to come out of the containers successfully with exiting?
+> CTRL + P + Q
+
+
+Task - 
+name of the is ubuntu /centos
+
+Errors or need better understanding?
+> docker exec -it centos /bin/bash
+
+IMPORTANT - One process has to be live anyhow to keep containers alive.
+
+
+If you want to about DevOps?
+http://www.devopsschool.com/video/index.html
+
+================================================================
+
+Second workflow?
+
+How to the list of all containers?
+> docker ps -a
+
+How to delete the container?
+> docker rm cont-id
+
+How to stop the container?
+> docker stop cont-id
+
+How to start the start the container?
+> docker start cont_id
+
+How to see the list of process running in the container?
+> docker top cont_id
+
+How to inspect the container?
+> docker inspect cont-id
+
+Troublshooting Commands
+Log | Inspect | top 
+
+How to check the logs of container?
+> docker logs cont_id
+
+How to copy files from host to containers?
+> docker cp [OPTIONS] CONTAINER:SRC_PATH DEST_PATH|-
+> docker cp rajesh.txt 94a40d01a31d:/opt
+
+How to check the file/directory chages in container?
+> docker diff 94a40d01a31d 
+
+How to name and rename the container?
+> docker rename cont-id name
+> docker help rename
+
+How to map the volume in container?
+> -v
+> docker run -p 8080:8080 -p 50000:50000 -v /opt/jenkins:/var/jenkins_home jenkins
+
+
+How to link containers?
+> --link
+
+LAB - https://goo.gl/LLARvn
+
+To view the approximate size of a running container
+> docker ps -s
+
+How to find cpu/ram
+> docker stat
+
+==============================================	
+SIMPLE WAY ----
+How to create a images?
+Method 1 - From Existing Container?
+> docke run -it centos /bin/bash
+# Do whatever the modification inside the contaienr
+> docker commit -a "Rajesh Kumar" -m "This is for demo" 4661fe62062b scmgalaxy/delhi:1.0
+> docker run -it scmgalaxy/delhi:1.0 /bin/bash
+
+Method 2 - From Dockerfile.
+======================================
+FROM ubuntu:latest
+MAINTAINER Rajesh Kumar "rajesh@scmgalaxy.com"
+RUN apt-get update -y
+RUN apt-get install git -y
+> docker build -t scmgalaxy/delhi:2.0 .
+
+verify
+> docker run -it scmgalaxy/delhi:2.0 /bin/bash
+
+How to share my images with thers?
+Method  1 - Registery
+
+
+Method  2 - Manual Process - Save - Load
+> docker save -o "delhi.tar" scmgalaxy/delhi:2.0
+> docker load -i delhi.tar
+
+
+
+
+
+
